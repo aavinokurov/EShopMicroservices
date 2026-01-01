@@ -145,3 +145,20 @@ services:
     volumes:
       - ${HOME}/Library/Application Support/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${HOME}/Library/Application Support/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  shopping.web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ApiSettings__GatewayAddress=http://yarpapigateway:8080
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/eshop-microservices.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+    depends_on:
+      - yarpapigateway
+    ports:
+      - "6005:8080"
+      - "6065:8081"
+    volumes:
+      - ${HOME}/Library/Application Support/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${HOME}/Library/Application Support/ASP.NET/Https:/home/app/.aspnet/https:ro
